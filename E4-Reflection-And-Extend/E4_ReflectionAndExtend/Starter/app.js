@@ -21,6 +21,13 @@ for(var prop in john){
     }
 }
 
+var jane ={
+    address:"hjsahska",
+    getFormalFullName:function(){
+        return this.lastname + ' ' + this.firstname;
+    }
+}
+
 
 
 
