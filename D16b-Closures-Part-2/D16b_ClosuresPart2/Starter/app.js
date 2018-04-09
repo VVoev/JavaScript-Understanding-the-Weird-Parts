@@ -1,49 +1,27 @@
-function buildFunctions(){
+var counter = (function(){
+       var privateCounter = 0 ;
     
-    var arr = [];
+        function changeBy(val){
+            privateCounter+=val;
+        }
     
-    for(var i = 0; i< 3; i+=1){
-        
-        arr.push(
-            function(){
-                console.log(i);
-            }
-        )
+    return{
+        increment:()=>{
+            changeBy(1);
+        },
+        decrement:()=>{
+            changeBy(-1);
+        },
+        value :() =>{
+            return privateCounter;
+        }
     }
-    
-    return arr;
-}
+}());
 
-var fs = buildFunctions();
-
-fs[0]();
-fs[1]();
-fs[2]();
-
-
-
-function buildFunctions2(){
-    
-    var arr = [];
-    
-    for(var i = 0; i< 3; i+=1){
-        
-        arr.push(
-            (function(j){
-                return function(){
-                    console.log(j);
-                    console.log(this);
-                }
-            }(i))
-        )
-    }
-    
-    return arr;
-}
-
-var fs2 = buildFunctions2();
-
-fs2[0]();
-fs2[1]();
-fs2[2]();
+console.log(counter.value()); // logs 0
+counter.increment();
+counter.increment();
+console.log(counter.value()); // logs 2
+counter.decrement();
+console.log(counter.value()); // logs 1
 
