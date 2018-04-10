@@ -11,62 +11,77 @@
         es: 'Holla'
     };
 
-    var formalGreetings = {
+    var formalgreetings = {
         en: 'Greetings',
         es: 'Saludos'
     };
 
-    var logMessage = {
+    var logMessages = {
         en: 'Logged in',
-        es: 'Inicio Sessione'
+        es: 'Inicio sessione'
     };
 
     Greetr.prototype = {
         fullname: function () {
-            return this.firstname + ' ' + this.lastname
+            return `${this.firstname} ${this.lastname}`
         },
 
         validate: function () {
             if (supportedLanguages.indexOf(this.language) === -1) {
-                throw "Invalid language";
+                throw 'Invalid Language';
             }
         },
 
         greeting: function () {
-            return greetings[this.language] + ' ' + this.firstname + '!';
+            return `${greetings[this.language]} ${this.firstname}!`
         },
 
-        formalGreeting: function () {
-            return formalGreetings[this.language] + ' ' + this.fullname() + '!';
+        formalgreetings: function () {
+            return `${formalgreetings[this.language]}, ${this.fullname()}!`
         },
 
         greet: function (formal) {
             var msg;
+            //if undefined or null it will be coerces to false
             if (formal) {
-                msg = this.formalGreeting();
-            }
-            else {
+                msg = this.formalgreetings();
+            } else {
                 msg = this.greeting();
             }
+
             if (console) {
                 console.log(msg);
             }
 
+            //chaining
+            return this;
+        },
+
+        log: function () {
+            if (console) {
+                console.log(logMessages[this.language] + ' ' + this.fullname());
+            }
+
+            return this;
+        },
+
+        setLanguage: function (language) {
+            this.language = language;
+            this.validate()
             return this;
         }
-
-
     }
 
     Greetr.init = function (firstname, lastname, language) {
+
         var self = this;
         self.firstname = firstname || '';
         self.lastname = lastname || '';
         self.language = language || 'en';
     }
 
-
     Greetr.init.prototype = Greetr.prototype;
+
 
     global.Greetr = global.G$ = Greetr;
 

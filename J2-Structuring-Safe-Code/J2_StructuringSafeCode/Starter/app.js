@@ -1,2 +1,2 @@
-var g = G$('vlado', 'voev', 'uk');
-console.log(g); 
+var g = G$('vlado', 'voev', 'en');
+g.greet().setLanguage('es').greet(true);
