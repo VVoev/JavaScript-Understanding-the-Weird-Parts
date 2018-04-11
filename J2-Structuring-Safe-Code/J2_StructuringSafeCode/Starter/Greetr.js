@@ -1,4 +1,4 @@
-(function (global, $) {
+; (function (global, $) {
 
     var Greetr = function (firstname, lastname, language) {
         return new Greetr.init(firstname, lastname, language);
@@ -69,6 +69,27 @@
             this.language = language;
             this.validate()
             return this;
+        },
+
+        HMTLGreeting: function (selector, formal) {
+            if (!$) {
+                throw 'Jquery not loaded';
+            }
+
+            if (!selector) {
+                throw 'Missing jquery selector';
+            }
+
+            var msg;
+            if (formal) {
+                msg = this.formalgreetings();
+            } else {
+                msg = this.greeting();
+            }
+
+            $(selector).html(msg);
+
+            return this;
         }
     }
 
@@ -78,6 +99,8 @@
         self.firstname = firstname || '';
         self.lastname = lastname || '';
         self.language = language || 'en';
+
+        self.validate();
     }
 
     Greetr.init.prototype = Greetr.prototype;
